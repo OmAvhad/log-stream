@@ -26,7 +26,9 @@ services:
 
   flask:
     container_name: flask
-    build: compose/flask
+    build: 
+      context: .
+      dockerfile: compose/flask/Dockerfile
     ports:
       - "5000:5000"
     depends_on:
