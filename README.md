@@ -8,18 +8,36 @@
 [![Flask](https://img.shields.io/badge/-Flask-black?logo=flask)](https://flask.palletsprojects.com/)
 
 ## Installation and Setup
-1. Make sure you have Docker installed on your system.
-2. Clone this repository.
+1. Clone this repository.
     ```
     git clone https://github.com/OmAvhad/log-stream.git
     ```
-3. Navigate to the project directory.
+2. Navigate to the project directory.
     ```
     cd log-stream
     ```
-4. Run the following command to start the application:
+3. Run the following command to build and start the application:
     ```
-    docker-compose up -d
+    docker-compose up -d --build
+    ```
+
+## Producer
+- Topics
+    - auth
+    - database
+    - email
+    - payment
+    - server
+    - services
+
+- Produce logs (Publish logs to a topic)
+    ```
+    docker-compose run --rm flask python producers/producer.py --topic TOPIC_NAME
+    ```
+
+- View logs (Consume logs of a topic)
+    ```
+    docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic TOPIC_NAME --from-beginning
     ```
  
 
