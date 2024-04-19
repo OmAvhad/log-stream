@@ -1,4 +1,16 @@
 # log-stream
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">Log Stream</h3>
+
+  <p align="center">
+    Harness the power of real-time log data management with ease and efficiency.
+    <br />
+  </p>
+</div>
 
 ## Prerequisites
 [![Docker](https://img.shields.io/badge/-Docker-blue?logo=docker)](https://www.docker.com/)
