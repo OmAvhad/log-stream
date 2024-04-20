@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 services:
   zookeeper:
     container_name: zookeeper
@@ -8,7 +8,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
-  
+
   kafka:
     container_name: kafka
     image: confluentinc/cp-kafka:7.4.4
@@ -26,7 +26,7 @@ services:
 
   flask:
     container_name: flask
-    build: 
+    build:
       context: .
       dockerfile: compose/flask/Dockerfile
     ports:
