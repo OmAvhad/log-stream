@@ -29,14 +29,16 @@ services:
     build:
       context: .
       dockerfile: compose/flask/Dockerfile
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    volumes: ["./server:/app/server"]
     ports:
       - "5000:5000"
     depends_on:
       - kafka
       - postgres
-    restart: on-failure:4
+    environment:
+      FLASK_ENV: development
+    restart: on-failure:4  # Restart till connects to postgres
+
 
   postgres:
     container_name: postgres

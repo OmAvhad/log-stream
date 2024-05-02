@@ -32,7 +32,4 @@ class Logs(db.Model):
 # Create application context
 app.app_context().push()
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run()
+db.create_all()

@@ -14,6 +14,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_BINDS"] = {
     "dev": "postgresql://postgres:password@postgres:5432/dev"
 }
+app.debug = True
 
 # connect to postgresql
 from server.database import db
@@ -28,6 +29,7 @@ def hello():
 
 
 def start_consumer_thread():
+    logging.basicConfig(level=logging.INFO)
     logging.info("Starting Kafka consumer thread")
     kafka_consumer()
 
@@ -46,6 +48,7 @@ def enqueue_logs():
 
 
 def start_enqueue():
+    logging.basicConfig(level=logging.INFO)
     logging.info("Starting log enqueuing thread")
     enqueue_logs()
 
