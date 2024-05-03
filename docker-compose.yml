@@ -39,7 +39,6 @@ services:
       FLASK_ENV: development
     restart: on-failure:4  # Restart till connects to postgres
 
-
   postgres:
     container_name: postgres
     image: postgres:latest
@@ -49,6 +48,8 @@ services:
       POSTGRES_DB: dev
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persist data even after container is removed
 
 volumes:
   postgres_data:

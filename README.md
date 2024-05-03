@@ -43,7 +43,7 @@
 
 - Produce logs (Publish logs to a topic)
     ```
-    docker-compose run --rm flask python producers/producer.py --topic TOPIC_NAME
+    docker-compose run --rm flask python producer/producer.py --topic TOPIC_NAME
     ```
 
 - View logs (Consume logs of a topic)

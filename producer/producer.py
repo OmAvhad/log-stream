@@ -1,10 +1,11 @@
+import os
 import json
 import time
 import argparse
 from kafka import KafkaProducer
 
 # Logs path
-logs_path = "./producers/logs"
+logs_path = "./producer/logs"
 
 # Argument parser
 parser = argparse.ArgumentParser(description="Kafka producer")

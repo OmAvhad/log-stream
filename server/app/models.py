@@ -1,16 +1,6 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from . import db
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@postgres:5432/dev'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SQLALCHEMY_BINDS'] = {
-    'dev': 'postgresql://postgres:password@postgres:5432/dev'
-}
-db = SQLAlchemy(app)
-    
-class Logs(db.Model):
+class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     level = db.Column(db.String(10), nullable=False)
     message = db.Column(db.String(100), nullable=False)
@@ -28,8 +18,3 @@ class Logs(db.Model):
     
     def __repr__(self):
         return f'<Log {self.message}>'
-
-# Create application context
-app.app_context().push()
-
-db.create_all()

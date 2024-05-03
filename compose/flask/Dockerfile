@@ -17,7 +17,7 @@ COPY . /app
 EXPOSE 5000
 
 # Define environment variable
-ENV FLASK_APP=server.app
+ENV FLASK_APP=server.run.py
 ENV FLASK_ENV=development
 
 # Run the script when the container launches

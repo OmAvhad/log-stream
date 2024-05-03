@@ -2,7 +2,8 @@ from kafka import KafkaConsumer
 import logging
 import time
 import json
-from server.queue import logs_queue
+from server.custom_queue import logs_queue
+from .utils import transform_keys
 
 # All topics
 topics = ["auth", "database", "email", "payment", "server", "services"]
@@ -34,7 +35,6 @@ def kafka_consumer():
 
                 # Parse the JSON object
                 data = transform_keys(json_object)
-                logging.info(type(data))
 
                 # Put the data in the queue
                 logs_queue.put(data)
@@ -44,17 +44,3 @@ def kafka_consumer():
             logging.info("Reconnecting to Kafka in 5 seconds...")
             time.sleep(5)
             consumer = None
-
-
-def transform_keys(message):
-    data = {
-        "level": message.get("level"),
-        "message": message.get("message"),
-        "resource_id": message.get("resourceId"),
-        "timestamp": message.get("timestamp"),
-        "trace_id": message.get("traceId"),
-        "span_id": message.get("spanId"),
-        "commit": message.get("commit"),
-        "meta_data": message.get("metadata"),
-    }
-    return data
