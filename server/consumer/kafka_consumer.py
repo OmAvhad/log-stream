@@ -11,6 +11,7 @@ topics = ["auth", "database", "email", "payment", "server", "services"]
 
 # Kafka consumer
 def kafka_consumer():
+    logging.basicConfig(level=logging.INFO)
     consumer = None
     while True:
         try:

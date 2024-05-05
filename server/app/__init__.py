@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from .elastic import connect_eleasticsearch
 
 db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+    
     app.config["SQLALCHEMY_DATABASE_URI"] = (
     "postgresql://postgres:password@postgres:5432/dev"
     )
@@ -15,11 +17,15 @@ def create_app():
     app.config["SQLALCHEMY_BINDS"] = {
         "dev": "postgresql://postgres:password@postgres:5432/dev"
     }
+    
     app.debug = True
 
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db, directory="./server/migrations")
+    
+    # Connect to Elasticsearch
+    app.elasticsearch = connect_eleasticsearch()
 
     # Import blueprints
     from .routes import main_bp

@@ -3,3 +3,4 @@ Flask-Migrate==4.0.7
 kafka-python
 SQLAlchemy
 psycopg2-binary
+elasticsearch

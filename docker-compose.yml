@@ -51,5 +51,28 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data # Persist data even after container is removed
 
+  es:
+    container_name: es
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    restart: always
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.14.0
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es:9200
+    restart: always
+
 volumes:
+  es_data:
+    driver: local
   postgres_data:
