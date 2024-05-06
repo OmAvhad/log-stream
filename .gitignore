@@ -1,3 +1,14 @@
 /env
 __pycache__/
 *.pyc
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore build output
+build/
+dist/
+*.log
+
+# Ignore environment files
+.env

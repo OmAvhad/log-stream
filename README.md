@@ -17,8 +17,8 @@
 ## Technologies Used
 [![Kafka](https://img.shields.io/badge/-Kafka-black?logo=apache-kafka)](https://kafka.apache.org/)
 [![Flask](https://img.shields.io/badge/-Flask-black?logo=flask)](https://flask.palletsprojects.com/)
-[![Elasticsearch](https://img.shields.io/badge/-Elasticsearch-yellow?logo=elasticsearch)](https://www.elastic.co/)
-[![Kibana](https://img.shields.io/badge/-Kibana-yellow?logo=kibana)](https://www.elastic.co/kibana/)
+[![Elasticsearch](https://img.shields.io/badge/-Elasticsearch-black?logo=elasticsearch)](https://www.elastic.co/)
+[![Kibana](https://img.shields.io/badge/-Kibana-black?logo=kibana)](https://www.elastic.co/kibana/)
 
 ## Installation and Setup
 1. Clone this repository.
