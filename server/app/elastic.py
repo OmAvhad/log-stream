@@ -1,7 +1,8 @@
+import time 
 from elasticsearch import Elasticsearch
 
 def connect_eleasticsearch():
-    es =  Elasticsearch(
+    es = Elasticsearch(
         [
             {
                 "host": "es",
@@ -9,12 +10,15 @@ def connect_eleasticsearch():
                 "scheme": "http",
             }
         ]
-    )   
-    
-    if es.ping():
-        print('Connected to Elasticsearch')
-    else:
-        print('Could not connect to Elasticsearch')
-    
+    )
+
+    while not es.ping():
+        print("Connecting to Elasticsearch...")
+        time.sleep(1)
+        print("Connected to Elasticsearch")
+        # Create an index in Elasticsearch
+    if not es.indices.exists(index="logs"):
+        es.indices.create(index="logs")
+
+
     return es
-    

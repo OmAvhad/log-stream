@@ -2,8 +2,10 @@ import threading
 from server.app import create_app
 from server.consumer.kafka_consumer import kafka_consumer
 from server.processor.processor import processor
+from flask_cors import CORS
 
 app = create_app()
+CORS(app)
 
 def process_logs():
     with app.app_context():
@@ -19,5 +21,5 @@ processor_thread = threading.Thread(target=process_logs)
 processor_thread.daemon = True
 processor_thread.start()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

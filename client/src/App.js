@@ -1,11 +1,11 @@
 import './App.css';
+import TableReact from './components/Table';
 
 function App() {
   return (
-    <>
-      <h1>App</h1>
-    </>
-    
+    <div className='flex flex-row py-2 px-2'>
+      <TableReact />
+    </div>
   );
 }
 

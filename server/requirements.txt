@@ -4,3 +4,4 @@ kafka-python
 SQLAlchemy
 psycopg2-binary
 elasticsearch
+flask-cors
