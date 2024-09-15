@@ -33,6 +33,10 @@
     ```
     docker-compose up -d --build
     ```
+4. Make migrations for the database.
+    ```
+    docker-compose run --rm flask flask db upgrade
+    ```
 
 ## Producer
 - Topics
@@ -42,7 +46,7 @@
     - payment
     - server
     - services
-
+    
 - Produce logs (Publish logs to a topic)
     ```
     docker-compose run --rm flask python producer/producer.py --topic TOPIC_NAME
