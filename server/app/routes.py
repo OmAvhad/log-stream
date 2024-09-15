@@ -1,4 +1,4 @@
-import json
+import json, logging
 from flask import Blueprint, request
 from .models import Log
 from flask import current_app as app, jsonify
@@ -14,13 +14,19 @@ def index():
 
 @main_bp.route("/logs", methods=["GET"])
 def logs():
-    # Get all logs from elasticsearch reverse sorted by timestamp
-    logs = app.elasticsearch.search(
-        index="logs",
-        body={"query": {"match_all": {}}, "sort": {"timestamp": "desc"}},
-        size=1000,
-    )
-
+    search_query = json.loads(request.args.get("q") or '{"query":{"match_all": {}}}')
+    logging.info("search query %s", search_query)
+    
+    try:
+        logs = app.elasticsearch.search(
+            index="logs",
+            body=search_query,
+            size=1000,
+        )
+    except Exception as e:
+        # return 500 if there is an error
+        return json.dumps({"message": str(e)}), 500
+    
     # logs is not JSON serializable, so we convert it to a list
     logs = [log for log in logs["hits"]["hits"]]
 
