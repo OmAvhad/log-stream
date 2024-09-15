@@ -11,6 +11,10 @@
   </p>
 </div>
 
+## Architecture
+![log-stream-v1](https://github.com/user-attachments/assets/2bbc925a-664d-4711-af0e-080f6e6c7354)
+
+
 ## Prerequisites
 [![Docker](https://img.shields.io/badge/-Docker-blue?logo=docker)](https://www.docker.com/)
 
