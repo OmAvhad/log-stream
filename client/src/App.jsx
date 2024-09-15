@@ -1,5 +1,6 @@
 import './App.css';
 import TableReact from './components/Table';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
