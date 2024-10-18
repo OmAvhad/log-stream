@@ -1,8 +1,9 @@
 import React from 'react'
 import { CiExport, CiSearch } from 'react-icons/ci'
 import { TextInput, Button, Dropdown } from 'flowbite-react'
+import { Link } from 'react-router-dom';
 
-function SearchNav( { logInterval, setLogInterval, columnOptions, setColumnOptions } ) {
+function SearchNav( { logInterval, setLogInterval, columnOptions, setColumnOptions } ){
     const handleLogInterval = (value) => {
         setLogInterval(value)
     }
@@ -55,13 +56,15 @@ function SearchNav( { logInterval, setLogInterval, columnOptions, setColumnOptio
                     <Dropdown.Item onClick={() => handleLogInterval('Past 30 mins')}>Past 30 mins</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleLogInterval('Past 1 hr')}>Past 1 hr</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleLogInterval('⚡Live')}>⚡Live</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleLogInterval('ALL')}>ALL</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleLogInterval('All')}>All</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={() => handleLogInterval('Custom')}>Custom</Dropdown.Item>
                 </Dropdown>
-                <button className='bg-white text-black p-2 rounded-md border flex flex-row justify-center items-center gap-1'>
-                    Analytics
-                </button>
+                <Link to="/analytics">
+                    <button className='bg-white text-black p-2 rounded-md border flex flex-row justify-center items-center gap-1'>
+                        Analytics
+                    </button>
+                </Link>
                 <button className='bg-white text-black p-2 rounded-md border flex flex-row justify-center items-center gap-1'>
                     <CiExport />
                 </button>

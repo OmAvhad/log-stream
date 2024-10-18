@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo, useEffect } from "react";
 import SearchNav from "./SearchNav";
 import axios from "axios";
+import io from 'socket.io-client';
 
 const TableReact = () => {
   const [logs, setLogs] = useState([])
@@ -52,7 +53,7 @@ const TableReact = () => {
     }
   };
 
-  const [ logInterval, setLogInterval ] = useState('Past 30 mins');
+  const [ logInterval, setLogInterval ] = useState('All');
 
   const intervals = {
     "Past 30 mins": {
@@ -67,14 +68,13 @@ const TableReact = () => {
       "gte": "now-1m/m",
       "lte": "now/m"
     },
-    "ALL": {
+    "All": {
       "gte": "now-1y/y",
       "lte": "now/y"
     }
   }
 
   useEffect(() => {
-
     // Build search query
     const searchQuery = {
       "query": {
@@ -83,7 +83,7 @@ const TableReact = () => {
             ...Object.keys(columnOptions)
             .filter((col) => columnOptions[col] !== "")
             .map((col) => (
-              {"match": {[col]: columnOptions[col]}}
+              {"prefix": {[col]: columnOptions[col]}}
             ))
           ],
           "filter": [
@@ -129,6 +129,32 @@ const TableReact = () => {
     logInterval,
     columnOptions
   ]);
+
+  useEffect(() => {
+    if (logInterval === "⚡Live") {
+      const socket = io('http://localhost:5000',
+        {
+          transports: ['websocket'],
+        }
+      );
+
+      console.log('Connecting to server');
+
+      socket.on('connect', () => {
+        console.log('Connected to server');
+      });
+
+      socket.on('log', (data) => {
+        console.log(data);  
+        const log = {"_source": data};
+        setLogs((prevLogs) => [log, ...prevLogs]);
+        setRowsToShow((prevLogs) => [log, ...prevLogs]);
+        setCustomPagination(
+          Array(Math.ceil(logs.length / rowsLimit)).fill(null)
+        );
+      });
+    }
+  }, [logInterval]);
 
   return (
     <div className="flex flex-col min-h-screen h-full w-full bg-white items-center ">
@@ -239,7 +265,7 @@ const TableReact = () => {
             </tbody>
           </table>
         </div>
-        <div className="w-full  flex justify-center sm:justify-between flex-col sm:flex-row gap-5 mt-1.5 px-1 items-center">
+        <div className="w-full flex justify-center sm:justify-between flex-col sm:flex-col gap-5 mt-1.5 px-1 items-center">
           <div className="text-lg">
             Showing {currentPage === 0 ? 1 : currentPage * rowsLimit + 1} to{" "}
             {currentPage === totalPage - 1

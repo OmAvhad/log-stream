@@ -21,4 +21,4 @@ ENV FLASK_APP=server.run.py
 ENV FLASK_ENV=development
 
 # Run the script when the container launches
-CMD ["flask", "run", "--host=0.0.0.0", "--debug"]
+CMD ["gunicorn", "-w", "4", "-k", "eventlet", "server.run:app", "--bind", "0.0.0.0:5000", "--reload"]

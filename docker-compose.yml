@@ -49,8 +49,8 @@ services:
       POSTGRES_DB: dev
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data # Persist data even after container is removed
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data # Persist data even after container is removed
 
   es:
     container_name: es
@@ -60,32 +60,23 @@ services:
       - xpack.security.enabled=false
     ports:
       - 9200:9200
-    volumes:
-      - es_data:/usr/share/elasticsearch/data
+    # volumes:
+      # - es_data:/usr/share/elasticsearch/data # Persist data even after container is removed
     restart: always
 
-  # kibana:
-  #   container_name: kibana
-  #   image: docker.elastic.co/kibana/kibana:7.14.0
+  # react:
+  #   container_name: react
+  #   build:
+  #     context: .
+  #     dockerfile: compose/react/Dockerfile
+  #   volumes: [
+  #     "./client:/app/client:delegated",
+  #     "/app/client/node_modules"
+  #     ]
   #   ports:
-  #     - 5601:5601
+  #     - "3000:3000"
   #   environment:
-  #     - ELASTICSEARCH_HOSTS=http://es:9200
-  #   restart: always
-
-  react:
-    container_name: react
-    build:
-      context: .
-      dockerfile: compose/react/Dockerfile
-    volumes: [
-      "./client:/app/client:delegated",
-      "/app/client/node_modules"
-      ]
-    ports:
-      - "3000:3000"
-    environment:
-      CHOKIDAR_USEPOLLING: "true"
+  #     CHOKIDAR_USEPOLLING: "true"
 
 volumes:
   es_data:

@@ -3,6 +3,7 @@ from flask import Blueprint, request
 from .models import Log
 from flask import current_app as app, jsonify
 from server.custom_queue import logs_queue
+from flask_socketio import emit, send
 
 main_bp = Blueprint("main", __name__)
 
@@ -49,5 +50,13 @@ def add_log():
 def delete_logs():
     # Delete all logs from elasticsearch
     app.elasticsearch.indices.delete(index="logs", ignore=[400, 404])
-
     return json.dumps({"message": "Logs deleted successfully!"})
+
+
+@main_bp.route("/test-socket", methods=["POST"])
+def test_socket():
+    message = request.get_json()
+    logging.info("Test route called")
+    # print connected clients
+    emit("log", message, namespace="/", broadcast=True)
+    return json.dumps({"message": "Log sent!"})

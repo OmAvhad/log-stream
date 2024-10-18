@@ -5,3 +5,6 @@ SQLAlchemy
 psycopg2-binary
 elasticsearch
 flask-cors
+flask-socketio
+eventlet
+gunicorn
